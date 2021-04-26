@@ -1,3 +1,5 @@
+package ObjectWriting;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.IOException;
@@ -26,7 +28,7 @@ public class Server {
 				int id = msgRequest.getId();
 				String fullName = msgRequest.getFullName();
 				String studentYear = msgRequest.getYear();
-				System.out.println("Student year: " + studentYear);
+				System.out.println("ObjectWriting.Student year: " + studentYear);
 
 				Student studentObject = new Student(id, fullName, studentYear);
 
@@ -47,8 +49,7 @@ public class Server {
 		ResultSet rs = null;
 		int candidateId = 0;
 
-		String sql = "INSERT INTO student(id, fullName, studyYear) "
-				+ "VALUES(?,?,?)";
+		String sql = "INSERT INTO student(id, fullName, studyYear) VALUES(?,?,?)";
 		try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/distributesocket", "root", "KhoANguyeN2020@")
 		) {
 			PreparedStatement pstmt = conn.prepareStatement(sql);

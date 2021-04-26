@@ -1,3 +1,5 @@
+package ObjectWriting;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -8,19 +10,21 @@ import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.InetAddress;
 import java.net.Socket;
-import java.sql.*;
 
 public class Client {
 	private JFrame mainFrame;
 	private JLabel headerLabel;
 	private JLabel statusLabel;
 	private JPanel controlPanel;
+	public static void main(String[] args) {
+		Client swingDemo = new Client();
+		swingDemo.showTextFieldDemo();
 
+	}
 	private void prepareGUI() {
 
 		mainFrame = new JFrame("Vi du Java Swing");
@@ -43,11 +47,11 @@ public class Client {
 	}
 	private void showTextFieldDemo() {
 		headerLabel.setText("Control in action: JTextField");
-		JLabel idLabel = new JLabel("Student ID: ", JLabel.LEFT);
+		JLabel idLabel = new JLabel("ObjectWriting.Student ID: ", JLabel.LEFT);
 		final JTextField idText = new JTextField(6);
-		JLabel nameLabel = new JLabel("Student name: ", JLabel.LEFT);
+		JLabel nameLabel = new JLabel("ObjectWriting.Student name: ", JLabel.LEFT);
 		final JTextField nameText = new JTextField(6);
-		JLabel yearLabel = new JLabel("Student year: ", JLabel.LEFT);
+		JLabel yearLabel = new JLabel("ObjectWriting.Student year: ", JLabel.LEFT);
 		final JTextField yearText = new JTextField(6);
 		JButton submitButton = new JButton("Submit");
 		submitButton.addActionListener(new ActionListener() {
@@ -58,7 +62,6 @@ public class Client {
 		});
 		controlPanel.add(idLabel);
 		controlPanel.add(idText);
-
 		controlPanel.add(nameLabel);
 		controlPanel.add(nameText);
 		controlPanel.add(yearLabel);
@@ -69,19 +72,14 @@ public class Client {
 	Client() {
 		prepareGUI();
 	}
-	public static void main(String[] args) {
-		Client swingDemo = new Client();
-		swingDemo.showTextFieldDemo();
 
-
-	}
 	private void sendToServer(Student student) {
 		int serverPort = 1999;
 		Socket socket = null;
 		ObjectOutputStream toServer = null;
 		ObjectInputStream fromServer = null;
 		BufferedReader br = null;
-		System.out.println("Client is on!");
+		System.out.println("ObjectWriting.Client is on!");
 		try {
 			InetAddress serverHost = InetAddress.getByName("localhost");
 			System.out.println("Connecting to server on port " + serverPort);

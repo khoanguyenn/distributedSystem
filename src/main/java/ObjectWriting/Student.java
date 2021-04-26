@@ -1,3 +1,5 @@
+package ObjectWriting;
+
 import java.io.Serializable;
 
 public final class Student implements Serializable {
