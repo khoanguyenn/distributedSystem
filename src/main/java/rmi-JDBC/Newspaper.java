@@ -1,0 +1,16 @@
+public class Newspaper extends Media {
+    private String type;
+
+    public Newspaper(String name, String type) {
+        super(name);
+        this.type = type;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+}
