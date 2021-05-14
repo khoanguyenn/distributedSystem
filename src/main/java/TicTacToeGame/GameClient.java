@@ -1,20 +1,18 @@
-import javax.swing.plaf.IconUIResource;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
-import java.util.Scanner;
 
 public class GameClient {
-    public static Scanner in = new Scanner(System.in); // the input Scanner
     public static void main(String[] args) {
         String host = "localhost";
         try {
-            // get data from users
             BufferedReader console = new BufferedReader(new InputStreamReader(System.in));
+
             Registry registry = LocateRegistry.getRegistry(host);
-            GamePlay stub = (GamePlay) registry.lookup("TicTacToe");
+            GameService stub = (GameService) registry.lookup("TicTacToe");
+
             String username = "";
             String password = "";
             int thisPlayer;
@@ -25,42 +23,53 @@ public class GameClient {
                 password = console.readLine();
             }
             while ((thisPlayer = stub.gameAuth(username, password)) == 0);
-
             System.out.println("Authentication successful!");
 
-            stub.initGame();
-            do {
 
-                int currentPlayer = stub.getCurrentPlayer();
-                // Print message if game-over
-                if (stub.getCurrentState() == stub.CROSS_WON) {
-                    System.out.println("'X' won! Bye!");
-                    break;
-                } else if (stub.getCurrentState() == stub.NOUGHT_WON) {
-                    System.out.println("'O' won! Bye!");
-                    break;
-                } else if (stub.getCurrentState() == stub.DRAW) {
-                    System.out.println("It's a Draw! Bye!");
+            String symbol = (thisPlayer == 1) ? "X" : "O";
+            System.out.println(symbol + " is connected !");
+
+            while (true) {
+                if (stub.isWin(symbol)) {
+                    System.out.println("You win!");
                     break;
                 }
-                if (thisPlayer == currentPlayer) {
-                    System.out.println(stub.printBoard());
-                    System.out.println("Your turn now!");
-                    int row = in.nextInt() - 1;  // array index starts at 0 instead of 1
-                    int col = in.nextInt() - 1;
-                    stub.playerMove(thisPlayer, row, col);
-                    stub.updateGame(thisPlayer);
-                    System.out.println(stub.printBoard());
-                    // Switch player
-                    stub.setCurrentPlayer((currentPlayer == stub.CROSS) ? stub.NOUGHT : stub.CROSS);
-                    System.out.println("Waiting for your opponent...");
+                if (stub.isLose(symbol)) {
+                    System.out.println("You lose!");
+                    break;
                 }
-            } while (stub.getCurrentState() == 0);
+                if (stub.isDraw()) {
+                    System.out.println("Both draw!");
+                    break;
+                }
 
+                if (stub.getCurrentPlayer().equals(symbol)) {
+                        if (stub.isWin(symbol)) break;
+                        if (stub.isLose(symbol)) break;
+                        if (stub.isDraw()) break; 
+                    try {
+                        System.out.println(stub.printBoard());
+                        System.out.println("Your turn now!");
+    
+                        System.out.print("Enter x coordinate: ");
+                        int xCoord = Integer.parseInt(console.readLine());
+                        System.out.print("Enter y coordinate: ");
+                        int yCoord = Integer.parseInt(console.readLine());
+                        System.out.println();
+                        stub.setMove(xCoord, yCoord, symbol);
+                        System.out.println(stub.printBoard());
+                        System.out.println("Wait for you opponent...");
+                    } catch(IOException ioException) {
+                        System.out.println(ioException.getMessage());
+                    } catch(NumberFormatException numberFormatException) {
+                        System.out.println(numberFormatException.getMessage());
+                    }
+
+                }
+            }
         } catch (IOException ioe) {
             System.out.println("Unexpected exception: " + ioe.getMessage());
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.err.println("Client exception: " + e.toString());
             e.printStackTrace();
         }
