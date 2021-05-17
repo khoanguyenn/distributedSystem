@@ -3,9 +3,6 @@ import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 
 public class GameServer {
-    public void makeMove(int x, int y, String player) {
-
-    }
     public static void main(String[] args) {
         try {
             Game gameService = new Game();
