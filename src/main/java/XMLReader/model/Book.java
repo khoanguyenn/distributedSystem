@@ -22,4 +22,17 @@ public class Book {
     public Author getAuthor() {
         return this.author;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sbuilder = new StringBuilder("");
+        sbuilder.append(this.title);
+        sbuilder.append(" - ");
+        sbuilder.append(this.publisher);
+        sbuilder.append(" - ");
+        sbuilder.append(this.author.getName());
+        sbuilder.append(" - ");
+        sbuilder.append(this.author.getAge());
+        return sbuilder.toString();        
+    }
 }
