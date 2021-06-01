@@ -1,0 +1,10 @@
+<books>
+	<book>
+		<title>Java complete guide</title>
+		<publisher>VGU</publisher>
+		<author>
+			<name>Khoa Nguyen</name>
+			<age>20</age>
+		</author>
+	</book>
+</books>
