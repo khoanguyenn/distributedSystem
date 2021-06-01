@@ -79,11 +79,4 @@ public class Object2Doc {
 		
 		return nodeBook;
 	}
-
-	public static void main(String[] args) throws ParserConfigurationException, TransformerException {
-        Book book = new Book("Java sourcecode", "Khoa", new Author("Khoa Nguyen", 20));
-        Document doc = convertObject2Doc(book);
-        String XMLString = convertDoc2XmlString(doc);
-        System.out.println(XMLString);
-	}
 }
