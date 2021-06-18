@@ -1,0 +1,15 @@
+{
+    "id": 123,
+    "name": "Smith",
+    "age": 24,
+    "accounts": [
+        {
+            "accountId": 15747,
+            "balance": 201
+        },
+        {
+            "accountId": 21467,
+            "balance": 645
+        }
+    ]
+}
