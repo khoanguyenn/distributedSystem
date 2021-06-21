@@ -28,7 +28,7 @@ public class JSONReader {
         System.out.println(id.intValue());
         System.out.println(name);
         System.out.println(age.intValue());
-        JSONArray accountsArray = (JSONArray) jo.get("accounts")
+        JSONArray accountsArray = (JSONArray) jo.get("accounts");
         for (Object obj : accountsArray) {
             Map map = (Map) obj;
             long accountId = (long) map.get("accountId");
